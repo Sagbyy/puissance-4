@@ -32,7 +32,21 @@ void displayGrid(int row, int column, int **grid) {
 
     for (int i = 0; i < row; i++) {
         for (int j = 0; j < column; j++) {
-            printf("| %c ", displayGrid[i][j]);
+            if (displayGrid[i][j] == 'X') {
+              printf("| ");
+              printf("\033[0;31m");
+              printf("%c ", displayGrid[i][j]);
+              printf("\033[0m");
+            } else if (displayGrid[i][j] == 'O')
+            {
+              printf("| ");
+              printf("\033[0;32m");
+              printf("%c ", displayGrid[i][j]);
+              printf("\033[0m");
+            }
+            else {
+              printf("| %c ", displayGrid[i][j]);
+            }
         }
         printf("|\n");
     }
