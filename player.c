@@ -3,8 +3,6 @@
 #include <stdlib.h>
 
 int playerPlay(int playerCross) {
-    system("cls");
-
     if (playerCross == 1) {
         printf("Au tour de ❌\n");
     } else {
