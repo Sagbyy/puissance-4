@@ -1,56 +1,87 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "demo.h"
-typedef struct {
-    int joueur;
-    int index;
-}Jeton;
+#include "player.c"
 
-void affichage(Jeton **jeton) {
-    int sizePlayGround = 194;
-    int sizeLine = 7*2;
-    int sizeColumn = 6;
-    char** map = malloc(sizeLine*sizeof(char*));
+#define ROW 12
+#define COLUMN 15
 
-    for (int i = 0; i < sizePlayGround; i++) {
-        map[i] = malloc(sizeof(char) * sizePlayGround/sizeColumn);
+int **createGrid(int row, int column) {
+    int **grid = malloc(sizeof(int*)*row);
+    for (int i = 0; i < row; i++) {
+        grid[i] = calloc(column,sizeof(int));
+    }
+    return grid;
+}
+
+char **createCharGrid(int row, int column, int **grid) {
+    grid[0][1] = 1;
+
+    char **displayGrid = malloc(sizeof(char*)*row);
+
+    for (int i = 0; i < row; i++) {
+        displayGrid[i] = calloc(column,sizeof(char));
+        for (int j = 0; j < column; j++) {
+            if (grid[i][j] == 0) {
+                displayGrid[i][j] = ' ';
+            } else if (grid[i][j] == 1) {
+                displayGrid[i][j] = 'X';
+            } else {
+                displayGrid[i][j] = 'O';
+            }
+        }
+    }
+    return displayGrid;
+}
+
+void displayGrid(int row, int column, char **grid) {
+    for (int i = 0; i < row; i++) {
+        for (int j = 0; j < column; j++) {
+            printf("| %c ", grid[i][j]);
+        }
+        printf("|\n");
     }
 
-    for(int i = 1; i < sizeColumn +1; i++) {
-        for(int j = 0; j < sizeLine; j++) {
-            if(j%2 == 0) {
-                map[i][j] = '|';
-                printf(" %c ",map[i][j]);
-            }
-            else {
-                map[i][j] = ' ';
-                printf("%c",map[i][j]);
-            }
-            if(j == sizeLine -1) {
-                printf(" |");
-            }
-            if(jeton[i][j].joueur != -1 && jeton[i][j].index == j) {
-                printf("%c",jeton[i][j].joueur);
-            }
+    // Yellow color
+    printf("\033[0;33m");
+    for (int i = 0; i < column; i++) {
+        printf(" %03d", i + 1);
+    }
+    printf("\033[0m\n");
+}
+
+// AJouter un jeton tout en bas de la colonne choisie et mettre de la colision entre les jetons
+void addPiece(int **grid, int column, int playerCross) {
+    int row = 0;
+    while (grid[row][column] != 0) {
+        row++;
+    }
+    grid[row][column] = playerCross;
+}
+
+int main(void) {
+    // int playerCross = 1;
+
+    // while (1)
+    // {
+    //     playerPlay(playerCross);
+    //     playerCross = !playerCross;
+    // }
+    
+    int **grid = createGrid(ROW, COLUMN);
+    char **charGrid = createCharGrid(ROW, COLUMN, grid);
+
+    addPiece(grid, 1, 1);
+
+    displayGrid(ROW, COLUMN, charGrid);
+
+    // Affiche le grid
+    for(int i = 0; i < ROW; i++) {
+        for (int j = 0; j < COLUMN; j++) {
+            printf("%d ", grid[i][j]);
         }
         printf("\n");
     }
-    for (int i = 0; i < sizePlayGround; i++) {
-        free(map[i]);
-    }
-    free(map);
-}
-int main(void) {
-    Jeton **jeton = malloc(sizeof(Jeton*)*6);
-    for (int i = 0; i < 6; i++) {
-        jeton[i] = calloc(7,sizeof(Jeton));
-        if(i == 5) {
-            jeton[5]->joueur = 1;
-        }
-    }
-
-
-    affichage(jeton);
 
     return 0;
 }
