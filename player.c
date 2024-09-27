@@ -2,7 +2,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-int playerPlay(int playerCross) {
+int playerPlay(int playerCross, TableSize *tableSize) {
     if (playerCross == 1) {
         printf("Au tour de ❌\n");
     } else {
@@ -10,13 +10,15 @@ int playerPlay(int playerCross) {
     }
 
     printf("Entrez la colonne: ");
-    int column;
-    scanf("%d", &column);
 
-    while(column <0 || column > COLUMN) {
-        printf("veuillez saisir un chiffre compris entre 0 et %d : ", COLUMN);
-        scanf("%d", &column);
-    }
+    char value[100];
+    int res;
 
-    return column;
+    do {
+        printf("Veuillez saisir un chiffre compris entre 1 et %d : ", tableSize->column);
+        fgets(value, 100, stdin);
+        res = atoi(value);
+    } while(!(res !=0 && res > 0 && res <= tableSize->column));
+
+    return res;
 }

@@ -5,19 +5,20 @@
 
 int main(void) {
     int playerCross = 1;  // Le joueur 1 commence
-    int **grid = createGrid(ROW, COLUMN);
+    TableSize *tableSize = getTableSize();
+    int **grid = createGrid(tableSize->row, tableSize->column);
 
     while (1) {
-        displayGrid(ROW, COLUMN, grid);
-        int pieceCol = playerPlay(playerCross);
+        displayGrid(tableSize->row, tableSize->column, grid);
+        int pieceCol = playerPlay(playerCross, tableSize);
         addPiece(grid, pieceCol - 1, playerCross);
 
 
-        for (int row = 0; row < ROW; row++) {
+        for (int row = 0; row < tableSize->row; row++) {
             if (grid[row][pieceCol - 1] == playerCross) {
                 if (checkWin(grid, row, pieceCol - 1, playerCross)) {
-                    system("clear");
-                    displayGrid(ROW, COLUMN, grid);
+                    system("cls");
+                    displayGrid(tableSize->row, tableSize->column, grid);
                     printf("Le joueur %d a gagné !\n", playerCross);
                     return 0;
                 }
@@ -31,7 +32,7 @@ int main(void) {
             playerCross = 1;
         }
 
-        system("clear");
+        system("cls");
 
     }
 

@@ -3,10 +3,12 @@
 
 #include <stdbool.h>
 
-#define ROW 12
-#define COLUMN 15
+typedef struct {
+    int row;
+    int column;
+} TableSize;
 
-
+TableSize *getTableSize();
 int **createGrid(int row, int column);
 char **createCharGrid(int row, int column, int **grid);
 void displayGrid(int row, int column, int **grid);

@@ -1,5 +1,26 @@
+#include <stdio.h>
 #include "grid.h"
 #include "color.c"
+
+TableSize *tableSize = NULL;
+
+TableSize *getTableSize() {
+    FILE *file = fopen("settings.conf", "r");
+
+    if (file == NULL) {
+        printf("Impossible d'ouvrir le fichier settings.conf\n");
+        exit(1);
+    }
+
+    tableSize = malloc(sizeof(TableSize));
+
+    fscanf(file, "ROWS=%d\n", &tableSize->row);
+    fscanf(file, "COLUMNS=%d\n", &tableSize->column);
+
+    fclose(file);
+
+    return tableSize;
+}
 
 int **createGrid(int row, int column) {
     int **grid = malloc(sizeof(int *) * row);
@@ -63,7 +84,7 @@ void displayGrid(int row, int column, int **grid) {
 
 void addPiece(int **grid, int column, int playerCross) {
     //02system("clear");
-    for (int i = ROW - 1; i >= 0; i--) {
+    for (int i = tableSize->row - 1; i >= 0; i--) {
         if (grid[i][column] == 0) {
             grid[i][column] = playerCross;
             break;
@@ -76,14 +97,14 @@ bool checkWin(int **grid, int row, int col, int playerDisc) {
 
     //verticalement
     count = 0;
-    for (int i = 0; i < ROW; i++) {
+    for (int i = 0; i < tableSize->row; i++) {
         count = (grid[i][col] == playerDisc) ? count + 1 : 0;
         if (count == 4) return true;
     }
 
     //horizontalement
     count = 0;
-    for (int j = 0; j < COLUMN; j++) {
+    for (int j = 0; j < tableSize->column; j++) {
         count = (grid[row][j] == playerDisc) ? count + 1 : 0;
         if (count == 4) return true;
     }
@@ -92,7 +113,7 @@ bool checkWin(int **grid, int row, int col, int playerDisc) {
     count = 0;
     for (int i = -3; i <= 3; i++) {
         int r = row + i, c = col + i;
-        if (r >= 0 && r < ROW && c >= 0 && c < COLUMN && grid[r][c] == playerDisc) {
+        if (r >= 0 && r < tableSize->row && c >= 0 && c < tableSize->column && grid[r][c] == playerDisc) {
             count++;
             if (count == 4) return true;
         } else {
@@ -104,7 +125,7 @@ bool checkWin(int **grid, int row, int col, int playerDisc) {
     count = 0;
     for (int i = -3; i <= 3; i++) {
         int r = row + i, c = col - i;
-        if (r >= 0 && r < ROW && c >= 0 && c < COLUMN && grid[r][c] == playerDisc) {
+        if (r >= 0 && r < tableSize->row && c >= 0 && c < tableSize->column && grid[r][c] == playerDisc) {
             count++;
             if (count == 4) return true;
         } else {
