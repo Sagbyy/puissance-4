@@ -1,4 +1,5 @@
 #include "grid.h"
+#include "color.c"
 
 int **createGrid(int row, int column) {
     int **grid = malloc(sizeof(int*)*row);
@@ -34,15 +35,15 @@ void displayGrid(int row, int column, int **grid) {
         for (int j = 0; j < column; j++) {
             if (displayGrid[i][j] == 'X') {
               printf("| ");
-              printf("\033[0;31m");
+              red();
               printf("%c ", displayGrid[i][j]);
-              printf("\033[0m");
+              resetColor();
             } else if (displayGrid[i][j] == 'O')
             {
               printf("| ");
-              printf("\033[0;32m");
+              green();
               printf("%c ", displayGrid[i][j]);
-              printf("\033[0m");
+              resetColor();
             }
             else {
               printf("| %c ", displayGrid[i][j]);
@@ -52,11 +53,12 @@ void displayGrid(int row, int column, int **grid) {
     }
 
     // Yellow color
-    printf("\033[0;33m");
+    yellow();
     for (int i = 0; i < column; i++) {
         printf(" %03d", i + 1);
     }
-    printf("\033[0m\n");
+    printf("\n");
+    resetColor();
 }
 
 void addPiece(int **grid, int column, int playerCross) {
