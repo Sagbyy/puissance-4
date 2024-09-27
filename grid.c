@@ -70,3 +70,47 @@ void addPiece(int **grid, int column, int playerCross) {
         }
     }
 }
+
+bool checkWin(int **grid, int row, int col, int playerDisc) {
+    int count;
+
+    //verticalement
+    count = 0;
+    for (int i = 0; i < ROW; i++) {
+        count = (grid[i][col] == playerDisc) ? count + 1 : 0;
+        if (count == 4) return true;
+    }
+
+    //horizontalement
+    count = 0;
+    for (int j = 0; j < COLUMN; j++) {
+        count = (grid[row][j] == playerDisc) ? count + 1 : 0;
+        if (count == 4) return true;
+    }
+
+    //diagonale /
+    count = 0;
+    for (int i = -3; i <= 3; i++) {
+        int r = row + i, c = col + i;
+        if (r >= 0 && r < ROW && c >= 0 && c < COLUMN && grid[r][c] == playerDisc) {
+            count++;
+            if (count == 4) return true;
+        } else {
+            count = 0;
+        }
+    }
+
+    // Vérifier diagonale \
+    count = 0;
+    for (int i = -3; i <= 3; i++) {
+        int r = row + i, c = col - i;
+        if (r >= 0 && r < ROW && c >= 0 && c < COLUMN && grid[r][c] == playerDisc) {
+            count++;
+            if (count == 4) return true;
+        } else {
+            count = 0;
+        }
+    }
+
+    return false;
+}
