@@ -1,7 +1,7 @@
 #include "grid.h"
 
 int **createGrid(int row, int column) {
-    int **grid = malloc(sizeof(int*)*row);
+    int **grid = malloc(sizeof(int *) * row);
     for (int i = 0; i < row; i++) {
         grid[i] = calloc(column,sizeof(int));
     }
@@ -60,6 +60,7 @@ void displayGrid(int row, int column, int **grid) {
 }
 
 void addPiece(int **grid, int column, int playerCross) {
+    //02system("clear");
     for (int i = ROW - 1; i >= 0; i--) {
         if (grid[i][column] == 0) {
             grid[i][column] = playerCross;

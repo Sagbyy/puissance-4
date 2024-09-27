@@ -1,3 +1,3 @@
-C:/Users/nabil/CLionProjects/puissance-4/cmake-build-debug/CMakeFiles/puissance.dir
-C:/Users/nabil/CLionProjects/puissance-4/cmake-build-debug/CMakeFiles/edit_cache.dir
-C:/Users/nabil/CLionProjects/puissance-4/cmake-build-debug/CMakeFiles/rebuild_cache.dir
+C:/Users/maham/CLionProjects/puissance-4/cmake-build-debug/CMakeFiles/puissance.dir
+C:/Users/maham/CLionProjects/puissance-4/cmake-build-debug/CMakeFiles/edit_cache.dir
+C:/Users/maham/CLionProjects/puissance-4/cmake-build-debug/CMakeFiles/rebuild_cache.dir

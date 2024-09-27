@@ -13,5 +13,10 @@ int playerPlay(int playerCross) {
     int column;
     scanf("%d", &column);
 
+    while(column <0 || column > COLUMN) {
+        printf("veuillez saisir un chiffre compris entre 0 et %d : ", COLUMN);
+        scanf("%d", &column);
+    }
+
     return column;
 }
