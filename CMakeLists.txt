@@ -1,8 +1,6 @@
 cmake_minimum_required(VERSION 3.29)
-project(ProjetC C)
+project(puissance C)
 
 set(CMAKE_C_STANDARD 99)
 
-add_executable(ProjetC main.c
-        demo.h
-        cmake-build-debug/demo.c)
+add_executable(puissance main.c)
